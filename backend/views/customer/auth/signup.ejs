@@ -1,9 +1,44 @@
 <%- include("../includes/head", {pageTitle: "Singup"}) %>
+    <link rel="stylesheet" href="/styles/forms.css">
+    <link rel="stylesheet" href="/styles/auth.css">
 </head>
 <body>
     <%- include("../includes/header") %>
     <main>
-
+        <h1>Create New Account</h1>
+        <form action="" method="">
+            <div class="inputField">
+                <label for="email">E-mail</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+            <div class="inputField">
+                <label for="confirm-email">Confirm E-mail</label>
+                <input type="email" name="email" id="confirm-email" required>
+            </div>
+            <div class="inputField">
+                <label for="password">Confirm E-mail</label>
+                <input type="password" name="password" id="password" minlength="6" required>
+            </div>
+            <hr>
+            <div class="inputField">
+                <label for="fullname">Full Name</label>
+                <input type="text" name="fullname" id="fullname" required>
+            </div>
+            <div class="inputField">
+                <label for="street">Street</label>
+                <input type="text" name="street" id="street" required>
+            </div>
+            <div class="inputField">
+                <label for="postal">Postal Code</label>
+                <input type="text" name="postal" id="postal" maxlength="6" required>
+            </div>
+            <div class="inputField">
+                <label for="city">City</label>
+                <input type="text" name="city" id="city" required>
+            </div>
+            <button class="btn">Create Account</button>
+            <p id="switch-form"><a href="/login">Login instead</a></p>
+        </form>
     </main>
 <%- include("../includes/footer") %>
 
