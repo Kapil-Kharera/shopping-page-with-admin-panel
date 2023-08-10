@@ -43,9 +43,15 @@ async function login(req, res) {
 
 }
 
+function logout(req, res) {
+    authUtil.destroyUserAuthSession(req);
+    res.redirect("/login");
+}
+
 module.exports = {
     getSingup: getSignup,
     getLogin: getLogin,
     signUp: signUp,
-    login: login
+    login: login,
+    logout: logout
 }
