@@ -5,7 +5,7 @@ function updateImagePreview() {
     const files = imagePickerElement.files;
 
     if(!files || files.length === 0) {
-        imagePreviewElement.style.display = "noen";
+        imagePreviewElement.style.display = "none";
         return;
     }
 
