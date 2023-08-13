@@ -36,8 +36,24 @@ async function createNewProduct(req, res, next) {
     res.redirect("/admin/products");
 }
 
+async function getUpdateProduct(req, res, next) {
+    const { id } = req.params;
+
+    try {
+        const product = await Product.findById(id);
+
+        res.render("admin/products/updateProduct", { product: product})
+    } catch (error) {
+        next(error);
+    }
+}
+
+function updateProduct(req, res) {}
+
 module.exports = {
     getProducts: getProducts,
     getNewProduct: getNewProduct,
-    createNewProduct: createNewProduct
+    createNewProduct: createNewProduct,
+    getUpdateProduct: getUpdateProduct,
+    updateProduct: updateProduct,
 }
