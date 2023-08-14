@@ -7,13 +7,16 @@ const db = require("./data/database");
 const addCsrfTokenMiddleware = require("./middlewares/csrf-token");
 const errorHandlerMiddleware = require("./middlewares/error-handler");
 const checkAuthStatusMiddleware = require("./middlewares/checkAuth");
+const protectRoutesMiddleware = require("./middlewares/protectRoutes");
+const cartMiddleware = require("./middlewares/cart");
+
 const createSessionConfig = require("./config/session");
 
 const authRoutes = require("./routes/auth.routes");
 const productsRoutes = require("./routes/products.routes");
 const baseRoutes = require("./routes/base.routes");
 const adminRoutes = require("./routes/admin.routes");
-const protectRoutesMiddleware = require("./middlewares/protectRoutes");
+const cartRoutes = require("./routes/cart.routes");
 
 const app = express();
 
@@ -25,10 +28,15 @@ app.use("/products/assets", express.static("productData"))
 
 app.use(express.urlencoded({ extended: false }));
 
+app.use(express.json());
+
 const sessionConfig = createSessionConfig();
 
 //before csrf
 app.use(expressSession(sessionConfig));
+
+//after session initialized
+app.use(cartMiddleware);
 
 //before routes
 app.use(csrf());
@@ -41,6 +49,10 @@ app.use(checkAuthStatusMiddleware);
 app.use(authRoutes);
 app.use(baseRoutes);
 app.use(productsRoutes);
+
+//use before protected routes (we want to allow everyone to access this route)
+app.use("/cart", cartRoutes);
+
 app.use(protectRoutesMiddleware)
 app.use("/admin", adminRoutes);
 
