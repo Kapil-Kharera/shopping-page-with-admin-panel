@@ -27,8 +27,29 @@ async function addCartItem(req, res) {
 }
 
 
+function updateCartItem(req, res) {
+    const cart = res.locals.cart;
+
+    const { productId, quantity } = req.body;
+
+    const updatedItemData = cart.updateItem(productId, quantity);
+
+    req.session.cart = cart;
+
+    res.json({
+        message: "Item updated",
+        updatedCartData: {
+            newTotalQuantity: cart.totalQuantity,
+            newTotalPrice: cart.totalPrice,
+            updatedItemPrice: updatedItemData.updatedItemPrice,
+        }
+    })
+}
+
+
 
 module.exports = {
     addCartItem: addCartItem, 
-    getCartPage: getCartPage
+    getCartPage: getCartPage,
+    updateCartItem: updateCartItem
 }
