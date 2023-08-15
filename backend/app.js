@@ -17,6 +17,7 @@ const productsRoutes = require("./routes/products.routes");
 const baseRoutes = require("./routes/base.routes");
 const adminRoutes = require("./routes/admin.routes");
 const cartRoutes = require("./routes/cart.routes");
+const ordersRoutes = require("./routes/orders.routes");
 
 const app = express();
 
@@ -53,7 +54,11 @@ app.use(productsRoutes);
 //use before protected routes (we want to allow everyone to access this route)
 app.use("/cart", cartRoutes);
 
-app.use(protectRoutesMiddleware)
+app.use(protectRoutesMiddleware);
+
+//use it after protected routes
+app.use("/orders", ordersRoutes);
+
 app.use("/admin", adminRoutes);
 
 
