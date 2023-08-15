@@ -13,7 +13,7 @@ async function updateOrder(event) {
     let response;
 
     try {
-        response = await fetch(`/admin/orders/${orderId}`), 
+        response = await fetch(`/admin/orders/${orderId}`, 
         {
             method: "PATCH",
             body: JSON.stringify({
@@ -23,7 +23,7 @@ async function updateOrder(event) {
             headers: {
                 'Content-Type': 'application/json'
             },
-        }
+        });
     } catch (error) {
         alert("Something went wrong - couldn't update order status.");
         return;

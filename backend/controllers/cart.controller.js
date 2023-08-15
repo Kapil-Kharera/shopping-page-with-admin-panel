@@ -32,7 +32,7 @@ function updateCartItem(req, res) {
 
     const { productId, quantity } = req.body;
 
-    const updatedItemData = cart.updateItem(productId, quantity);
+    const updatedItemData = cart.updateItem(productId, +quantity);
 
     req.session.cart = cart;
 

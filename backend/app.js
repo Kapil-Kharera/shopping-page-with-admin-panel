@@ -9,6 +9,7 @@ const errorHandlerMiddleware = require("./middlewares/error-handler");
 const checkAuthStatusMiddleware = require("./middlewares/checkAuth");
 const protectRoutesMiddleware = require("./middlewares/protectRoutes");
 const cartMiddleware = require("./middlewares/cart");
+const updateCartPricesMiddleware = require("./middlewares/updateCartPrices");
 
 const createSessionConfig = require("./config/session");
 
@@ -38,6 +39,9 @@ app.use(expressSession(sessionConfig));
 
 //after session initialized
 app.use(cartMiddleware);
+
+//use after cartMiddleware
+app.use(updateCartPricesMiddleware);
 
 //before routes
 app.use(csrf());
