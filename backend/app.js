@@ -10,6 +10,7 @@ const checkAuthStatusMiddleware = require("./middlewares/checkAuth");
 const protectRoutesMiddleware = require("./middlewares/protectRoutes");
 const cartMiddleware = require("./middlewares/cart");
 const updateCartPricesMiddleware = require("./middlewares/updateCartPrices");
+const notFoundMiddleware = require("./middlewares/notFound");
 
 const createSessionConfig = require("./config/session");
 
@@ -58,13 +59,13 @@ app.use(productsRoutes);
 //use before protected routes (we want to allow everyone to access this route)
 app.use("/cart", cartRoutes);
 
-app.use(protectRoutesMiddleware);
-
 //use it after protected routes
-app.use("/orders", ordersRoutes);
+app.use("/orders", protectRoutesMiddleware, ordersRoutes);
 
-app.use("/admin", adminRoutes);
+app.use("/admin", protectRoutesMiddleware, adminRoutes);
 
+//use it before errorhandlermiddleware
+app.use(notFoundMiddleware);
 
 app.use(errorHandlerMiddleware);
 
