@@ -90,6 +90,7 @@ async function deleteProduct(req, res, next) {
 async function getOrders(req, res, next) {
     try {
         const orders = await Order.findAll();
+        // console.log(orders);
         res.render("admin/orders/adminOrders", { orders: orders });
     } catch (error) {
         next(error);
